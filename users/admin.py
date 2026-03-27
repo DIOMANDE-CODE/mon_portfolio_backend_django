@@ -3,18 +3,24 @@ from .models import Utilisateur, Competence
 
 # Register your models here.
 
+
 @admin.register(Competence)
 class CompetenceAdmin(admin.ModelAdmin):
-    list_display = ('nom_competence',)
-    search_fields = ('nom_competence',)
-    ordering = ['nom_competence']
+    list_display = ("nom_competence",)
+    search_fields = ("nom_competence",)
+    ordering = ["nom_competence"]
+
 
 @admin.register(Utilisateur)
 class UtilisateurAdmin(admin.ModelAdmin):
-    list_display = ('email', 'nom', 'get_photo', 'is_active', 'is_superuser')
-    search_fields = ('email', 'nom',)
-    ordering = ['nom']
+    list_display = ("email", "nom", "get_photo", "is_active", "is_superuser")
+    search_fields = (
+        "email",
+        "nom",
+    )
+    ordering = ["nom"]
 
     def get_photo(self, obj):
         return str(obj.photo_profil) if obj.photo_profil else "Pas de photo"
+
     get_photo.short_description = "Photo de profil"

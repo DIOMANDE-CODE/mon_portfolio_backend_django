@@ -17,9 +17,10 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+
 # API POST : Enregistrement d'un contact
 @permission_classes([AllowAny])
-@api_view(['POST'])
+@api_view(["POST"])
 def enregistrement_contact(request):
     serializer = ContactSerializer(data=request.data)
     if serializer.is_valid():
@@ -30,27 +31,25 @@ def enregistrement_contact(request):
         to_email = ["chezpyth@gmail.com"]
 
         context = {
-            'nom': contact.nom_client,
-            'email': contact.email_client,
-            'sujet': contact.service_client,
-            'message': contact.message_client,
-            'numero_telephone' : contact.numero_client,
-            'date_reception': contact.date_reception,
+            "nom": contact.nom_client,
+            "email": contact.email_client,
+            "sujet": contact.service_client,
+            "message": contact.message_client,
+            "numero_telephone": contact.numero_client,
+            "date_reception": contact.date_reception,
         }
 
         # Charger le template HTML et texte
-        html_content = render_to_string('emails/contact_email.html', context)
-        text_content = render_to_string('emails/contact_email.txt', context)
+        html_content = render_to_string("emails/contact_email.html", context)
+        text_content = render_to_string("emails/contact_email.txt", context)
 
         email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
         email.attach_alternative(html_content, "text/html")
         email.send()
 
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 def acceuil(request):
-    return JsonResponse({
-        'message':'Bienvenue sur mon API backend'
-    })
+    return JsonResponse({"message": "Bienvenue sur mon API backend"})

@@ -19,3 +19,5 @@ env/
 # Fichiers système
 .DS_Store
 Thumbs.db
+
+commande_test.txt
