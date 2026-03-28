@@ -86,35 +86,114 @@ Le projet utilise `whitenoise` pour servir les fichiers statiques en production.
 
 Lancer la suite de tests :
 
-   python manage.py test
+# Portofolio Backend — API Django
 
-## Structure du projet (sélection)
+Backend API REST pour un portfolio personnel, construit avec Django 5.2.2 et Django REST Framework.
 
-- `portofolio_backend/` — configuration Django (settings, urls, wsgi, asgi)
-- `users/` — application utilisateur (modèle personnalisé)
-- `projets/` — application gestion des projets
-- `contact/` — gestion du formulaire de contact
-- `templates/` — templates et emails
-- `staticfiles/` — fichiers collectés
+Résumé rapide : gestion d'un modèle utilisateur personnalisé, gestion des projets, et formulaire de contact ; stockage des médias sur Cloudinary.
 
-## Déploiement
+## Technologies
 
-Points à considérer pour la production :
-- Définir `DEBUG=False` et `ALLOWED_HOSTS`
-- Configurer la base de données de production
-- Configurer les variables Cloudinary et email
-- Utiliser un serveur WSGI (ex : Gunicorn) et un reverse-proxy (ex : Nginx)
+- Python 3.11+
+- Django 5.2.2
+- Django REST Framework
+- Cloudinary (stockage média)
+- Whitenoise (fichiers statiques)
+- django-axes (protection brute-force)
+
+## Installation (développement)
+
+1. Cloner le dépôt et se placer dans le dossier projet :
+
+```bash
+git clone <URL_DU_REPO>
+cd portofolio_backend
+```
+
+2. Créer et activer un environnement virtuel :
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+3. Installer les dépendances :
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Créer un fichier `.env` à la racine (exemple ci-dessous), puis appliquer les migrations :
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser  # optionnel
+python manage.py runserver
+```
+
+## Exemple de fichier `.env` (minimale)
+
+```
+SECRET_KEY=change_me
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
+CORS_ALLOWED_ORIGINS=http://localhost:3000
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=you@example.com
+EMAIL_HOST_PASSWORD=yourpassword
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+Remplacez les valeurs par celles de votre environnement.
+
+## Commandes utiles
+
+- Lancer le serveur : `python manage.py runserver`
+- Appliquer les migrations : `python manage.py migrate`
+- Créer superutilisateur : `python manage.py createsuperuser`
+- Exécuter les tests : `python manage.py test`
+- Collecter les fichiers statiques : `python manage.py collectstatic --noinput`
+
+## Configuration importante
+
+- Le projet utilise le modèle utilisateur personnalisé `users.Utilisateur` (défini dans l'application `users`).
+- En dev, la base de données par défaut est SQLite (`db.sqlite3`). Pour la production, configurez `DATABASES` via variables d'environnement.
+- Les variables CORS et CSRF sont lues depuis les variables d'environnement (voir `portofolio_backend/settings.py`).
+
+## Endpoints (quick start)
+
+Le projet expose des endpoints via Django REST Framework. Pour obtenir la liste exacte des routes :
+
+```bash
+python manage.py show_urls  # si vous avez un utilitaire pour lister les routes
+# ou naviguez vers l'API en local (DRF browsable API) : http://127.0.0.1:8000/
+```
+
+Souhaitez-vous que j'ajoute ici la liste détaillée des endpoints (ex: `/api/projets/`, `/api/users/`, `/api/contact/`)?
+
+## Déploiement (points clés)
+
+- Définir `DEBUG=False` et configurer `ALLOWED_HOSTS`.
+- Configurer une base de données de production (Postgres, MariaDB, etc.).
+- Configurer Cloudinary et les paramètres email en variables d'environnement.
+- Utiliser Gunicorn (ou autre WSGI) derrière Nginx ; activer `collectstatic`.
 
 ## Contribution
 
-Contributions bienvenues. Ouvrez une issue ou un pull request pour proposer des changements.
+Ouvrez une issue pour discuter d'un changement, puis envoyez une pull request. Respectez la structure des applications et ajoutez des tests pour des changements significatifs.
 
 ## Licence
 
-Pas de licence fournie dans le dépôt. Ajouter un fichier `LICENSE` si vous souhaitez en déclarer une.
+Aucune licence fournie. Ajoutez un fichier `LICENSE` si vous souhaitez en déclarer une.
 
 ## Contact
 
-diomandedroh79@gmail.com
+Les templates d'email pour le contact se trouvent dans `templates/emails/`.
 
 ---
+

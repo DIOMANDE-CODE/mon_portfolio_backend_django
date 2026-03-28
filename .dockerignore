@@ -1,0 +1,52 @@
+# --- Python / Django ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.toast
+.build
+.pytest_cache/
+
+# On ignore les fichiers médias téléchargés localement
+media/
+# On ignore les fichiers statiques collectés localement (ils seront générés dans le conteneur)
+static/
+staticfiles/
+
+# --- Variables d'environnement et Secrets ---
+.env
+.env.local
+.env.dev
+.env.prod
+.secrets
+*.key
+*.pem
+
+# --- Git / Versioning ---
+.git
+.gitignore
+.gitattributes
+.hg
+.svn
+
+# --- Docker / CI-CD ---
+.dockerignore
+Dockerfile
+docker-compose*.yml
+.gitlab-ci.yml
+.github/
+
+# --- OS / IDE (VS Code) ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+.commande_test.txt
